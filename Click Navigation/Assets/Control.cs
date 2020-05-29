@@ -12,7 +12,9 @@ public class Control : MonoBehaviour
 
     void Update()
     {
-        if (!Input.GetMouseButton(0)) return;
+        // If the left mouse button was NOT clicked on this frame, end the function.
+    if (!Input.GetMouseButton(0)) return; 
+    
         // Get the point on the screen where the mouse is
         Vector2 mousePosition = Input.mousePosition;
 

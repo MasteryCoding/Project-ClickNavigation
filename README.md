@@ -132,13 +132,13 @@ public class Movement : MonoBehaviour
         // Get the velocity of the NavMeshAgent
         Vector3 velocity = navMeshAgent.velocity;
 
-        // Use the velocity to get the component vector in the Z direction
-        Vector3 forwardVelocity = Vector3.Scale(velocity, transform.forward);
+        // Convert the velocity from global to local.
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
 
-        // Speed is a scalar. We can get it from the magnitude of the forwardVelocity vector
-        float forwardSpeed = forwardVelocity.magnitude;
+        // Speed is a scalar. We can get it from the z axis of the local velocity. 
+        float forwardSpeed = localVelocity.z;
 
-        // Now we can set the Speed parameter of the Animator
+        // Now we can set the Speed parameter of the Animator.
         animator.SetFloat("Speed", forwardSpeed);
     }
 }
@@ -164,28 +164,28 @@ public class Control : MonoBehaviour
     Camera camera;
     void Awake()
     {
-        // Get a reference to the Camera component
+        // Get a reference to the Camera component.
         camera = GetComponent<Camera>();
     }
 
     void Update()
     {
-        // Get the point on the screen where the mouse is
+        // Get the point on the screen where the mouse is.
         Vector2 mousePosition = Input.mousePosition;
 
-        // Initialize a ray using the ScreenPointToRay method
+        // Initialize a ray using the ScreenPointToRay method.
         Ray cameraRay = camera.ScreenPointToRay(mousePosition);
 
         // Declare a RaycastHit
         RaycastHit hit;
         
-        // Start a raycast and pass in the RaycastHit to get data back
+        // Start a raycast and pass in the RaycastHit to get data back.
         bool hitSomething = Physics.Raycast(cameraRay, out hit);
 
-        // If the ray did not hit anything, end the function
+        // If the ray did not hit anything, end the function.
         if (!hitSomething) return;
 
-        // Set the position of the target to the point where the ray hit
+        // Set the position of the target to the point where the ray hit.
         target.position = hit.point;
     }
 }
@@ -221,7 +221,9 @@ void Update()
 ```csharp
 void Update()
 {
-    if (Input.GetM)
+    // If the left mouse button was NOT clicked on this frame, end the function.
+    if (!Input.GetMouseButton(0)) return; 
+
     Vector2 mousePosition = Input.mousePosition;
     Ray cameraRay = camera.ScreenPointToRay(mousePosition);
     RaycastHit hit;
