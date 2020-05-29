@@ -1,7 +1,6 @@
 # Click Navigation Project
 Unity Version: 2019.3
 
-
 ## Build
 
 ### Setup
@@ -238,6 +237,8 @@ void Update()
 1. Change skybox to solid color
 2. Set camera projection to "orthographic"
 3. Adjust camera size and position
+
+![Finished](Resources/Finished.gif)
 
 ### Resources
 
